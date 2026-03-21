@@ -1,0 +1,23 @@
+import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
+import { AppModule } from './app.module';
+import { DomainExceptionFilter } from './common/filters/domain-exception.filter';
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  // Enable global validation for DTOs
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
+
+  // Register the DomainExceptionFilter globally
+  app.useGlobalFilters(new DomainExceptionFilter());
+
+  await app.listen(process.env.PORT || 3000);
+}
+bootstrap();
