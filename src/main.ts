@@ -6,6 +6,8 @@ import { DomainExceptionFilter } from './common/filters/domain-exception.filter'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors();
+
   // Enable global validation for DTOs
   app.useGlobalPipes(
     new ValidationPipe({

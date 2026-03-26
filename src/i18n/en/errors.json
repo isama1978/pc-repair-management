@@ -1,27 +1,25 @@
 {
-  "errors": {
-    "CLIENT_ID_REQUIRED": "The client ID is mandatory to create an order.",
-    "EQUIPMENT_BRAND_REQUIRED": "The equipment brand is mandatory.",
-    "EQUIPMENT_TYPE_REQUIRED": "The equipment type (Laptop, PC, etc.) is required.",
-    "ORDER_ID_REQUIRED_FOR_UPDATE": "An Order ID is required to perform an update.",
-    "CANNOT_UPDATE_ITEM_WITHOUT_ID": "Cannot update an item that doesn't have a valid ID.",
+  "CLIENT_ID_REQUIRED": "The client ID is mandatory to create an order.",
+  "EQUIPMENT_BRAND_REQUIRED": "The equipment brand is mandatory.",
+  "EQUIPMENT_TYPE_REQUIRED": "The equipment type (Laptop, PC, etc.) is required.",
+  "ORDER_ID_REQUIRED_FOR_UPDATE": "An Order ID is required to perform an update.",
+  "CANNOT_UPDATE_ITEM_WITHOUT_ID": "Cannot update an item that doesn't have a valid ID.",
 
-    "CLIENT_NOT_FOUND": "The requested client does not exist.",
-    "ITEM_NOT_FOUND": "The inventory item was not found.",
-    "ORDER_NOT_FOUND": "The repair order was not found.",
-    "ORDER_PART_NOT_FOUND": "The specified part is not linked to this order.",
+  "CLIENT_NOT_FOUND": "The requested client does not exist.",
+  "ITEM_NOT_FOUND": "The inventory item was not found.",
+  "ORDER_NOT_FOUND": "The repair order was not found.",
+  "ORDER_PART_NOT_FOUND": "The specified part is not linked to this order.",
 
-    "INVALID_EMAIL": "The email format is not valid.",
-    "STOCK_CANNOT_BE_NEGATIVE": "Inventory stock cannot be less than zero.",
-    "PRICE_CANNOT_BE_NEGATIVE": "The price cannot be a negative value.",
-    "QUANTITY_MUST_BE_GREATER_THAN_ZERO": "The quantity must be at least 1.",
-    "INSUFFICIENT_STOCK": "Insufficient stock for SKU {sku}. Requested: {requested}, Available: {current}",
+  "INVALID_EMAIL": "The email format is not valid.",
+  "STOCK_CANNOT_BE_NEGATIVE": "Inventory stock cannot be less than zero.",
+  "PRICE_CANNOT_BE_NEGATIVE": "The price cannot be a negative value.",
+  "QUANTITY_MUST_BE_GREATER_THAN_ZERO": "The quantity must be at least 1.",
+  "INSUFFICIENT_STOCK": "Insufficient stock for SKU {sku}. Requested: {requested}, Available: {current}",
 
-    "INVALID_STATUS_TRANSITION": "The requested status change is not allowed.",
-    "CANNOT_UPDATE_DELIVERED_ORDER": "This order is already delivered and cannot be modified.",
-    "ORDER_ALREADY_DELIVERED": "This order has already been handed over to the client.",
+  "INVALID_STATUS_TRANSITION": "The requested status change is not allowed.",
+  "CANNOT_UPDATE_DELIVERED_ORDER": "This order is already delivered and cannot be modified.",
+  "ORDER_ALREADY_DELIVERED": "This order has already been handed over to the client.",
 
-    "DATABASE_ERROR": "A technical error occurred while saving the data.",
-    "INTERNAL_SERVER_ERROR": "An unexpected error occurred. Please contact support."
-  }
+  "DATABASE_ERROR": "A technical error occurred while saving the data.",
+  "INTERNAL_SERVER_ERROR": "An unexpected error occurred. Please contact support."
 }

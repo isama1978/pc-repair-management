@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { WorkOrderRepository } from '../domain/work-order.repository';
 import { OrderHistory } from '../domain/work-order-history.entity';
 import { UpdateOrderDto } from '../infrastructure/http/dto/update-order.dto';
+import { OrderNotFoundException } from '../domain/exceptions/order-not-found.exception';
 
 @Injectable()
 export class UpdateOrderStatusUseCase {
@@ -13,7 +14,7 @@ export class UpdateOrderStatusUseCase {
     data: Partial<UpdateOrderDto>,
   ) {
     const order = await this.repository.findById(orderId);
-    if (!order) throw new NotFoundException('ORDER_NOT_FOUND');
+    if (!order) throw new OrderNotFoundException(orderId);
 
     const oldStatus = order.status;
 

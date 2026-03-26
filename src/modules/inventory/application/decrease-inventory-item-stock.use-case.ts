@@ -1,10 +1,7 @@
 // src/modules/inventory/application/decrease-inventory-item-stock.use-case.ts
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InventoryRepository } from '../domain/inventory.repository';
+import { InsufficientStockException } from '../domain/exceptions/insufficient-stock.exception';
 
 @Injectable()
 export class DecreaseInventoryItemStockUseCase {
@@ -30,8 +27,7 @@ export class DecreaseInventoryItemStockUseCase {
         message: 'Stock adjusted successfully',
       };
     } catch (error) {
-      // Capturamos el error de la entidad (INSUFFICIENT_STOCK)
-      throw new BadRequestException(error.message);
+      throw new InsufficientStockException(item.sku, item.stock, quantity);
     }
   }
 }

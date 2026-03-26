@@ -13,6 +13,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ClientsModule } from './modules/clients/clients.module';
 import { InventoryModule } from './modules/inventory/inventory.module';
 
+console.log('📂 I18n Path:', path.join(__dirname, '..', 'i18n'));
 @Module({
   imports: [
     // Load environment variables

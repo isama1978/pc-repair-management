@@ -73,7 +73,12 @@ export class InventoryItem {
 
   public decreaseStock(quantity: number): void {
     if (this.props.stock < quantity) {
-      // 🛡️ Excepción específica de este módulo
+      console.log(
+        'InsufficientStockException',
+        this.props.sku,
+        this.props.stock,
+        quantity,
+      );
       throw new InsufficientStockException(
         this.props.sku,
         this.props.stock,

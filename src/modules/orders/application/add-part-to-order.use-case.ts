@@ -40,7 +40,7 @@ export class AddPartToOrderUseCase {
         throw new PartNotFoundException(partId);
       }
       if (part.stock < quantity) {
-        throw new InsufficientStockException(part.sku, quantity, part.stock);
+        throw new InsufficientStockException(part.sku, part.stock, quantity);
       }
 
       // 2. Lógica de dominio: Descontar stock en memoria
