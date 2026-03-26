@@ -2,9 +2,9 @@ name: PC Repair Management CI
 
 on:
   push:
-    branches: [ "*" ]
+    branches: [ "**" ]
   pull_request:
-    branches: [ "*" ]
+    branches: [ main ]
 
 jobs:
   build-and-test:
