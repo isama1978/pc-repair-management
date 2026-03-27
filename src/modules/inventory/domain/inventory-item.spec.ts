@@ -1,5 +1,6 @@
 import { InventoryItem } from './inventory-item.entity';
-import { InvalidDomainValueException } from 'src/modules/common/domain/exceptions/InvalidDomainValueException';
+//import { InvalidDomainValueException } from 'src/modules/common/domain/exceptions/InvalidDomainValueException';
+import { InvalidDomainValueException } from '../../common/domain/exceptions/InvalidDomainValueException';
 
 describe('InventoryItem Entity', () => {
   it('should throw an error if stock is negative', () => {
