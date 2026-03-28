@@ -38,6 +38,7 @@ describe('AddPartToOrderUseCase', () => {
         { provide: DataSource, useValue: mockDataSource },
         { provide: WorkOrderRepository, useValue: mockWorkOrderRepo },
         { provide: InventoryRepository, useValue: mockInventoryRepo },
+        { provide: OrderPartsRepository, useValue: mockOrderPartsRepo },
         // 🎯 Usamos el TOKEN que definiste
         { provide: ORDER_PARTS_REPOSITORY, useValue: mockOrderPartsRepo },
       ],
