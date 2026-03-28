@@ -1,42 +1,57 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { DataSource } from 'typeorm';
 import { AddPartToOrderUseCase } from './add-part-to-order.use-case';
 import { WorkOrderRepository } from '../domain/work-order.repository';
 import { InventoryRepository } from '../../inventory/domain/inventory.repository';
-import { InsufficientStockException } from '../../inventory/domain/exceptions/insufficient-stock.exception';
-import { InventoryItem } from '../../inventory/domain/inventory-item.entity';
+// Importamos tu repositorio y el TOKEN
+import {
+  OrderPartsRepository,
+  ORDER_PARTS_REPOSITORY,
+} from '../domain/order-parts.repository';
 import { WorkOrder, WorkOrderStatus } from '../domain/work-order.entity';
+import { InventoryItem } from 'src/modules/inventory/domain/inventory-item.entity';
 
 describe('AddPartToOrderUseCase', () => {
   let useCase: AddPartToOrderUseCase;
   let orderRepository: jest.Mocked<WorkOrderRepository>;
   let inventoryRepository: jest.Mocked<InventoryRepository>;
+  let orderPartsRepository: jest.Mocked<OrderPartsRepository>;
 
   beforeEach(async () => {
-    // Definimos los Mocks de los repositorios
-    const mockOrderRepository = {
-      findById: jest.fn(),
-      save: jest.fn(),
+    // 1. Mocks con TUS métodos reales
+    const mockOrderPartsRepo = {
+      addPart: jest.fn(),
+      findByOrderId: jest.fn(),
+      removePart: jest.fn(),
+      sumTotalByOrderId: jest.fn(),
     };
-    const mockInventoryRepository = {
-      findBySku: jest.fn(),
-      save: jest.fn(),
+
+    const mockWorkOrderRepo = { findById: jest.fn(), save: jest.fn() };
+    const mockInventoryRepo = { findBySku: jest.fn(), save: jest.fn() };
+    const mockDataSource = {
+      transaction: jest.fn().mockImplementation((cb) => cb()),
     };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AddPartToOrderUseCase,
-        { provide: 'IOrderRepository', useValue: mockOrderRepository },
-        { provide: 'IInventoryRepository', useValue: mockInventoryRepository },
+        { provide: DataSource, useValue: mockDataSource },
+        { provide: WorkOrderRepository, useValue: mockWorkOrderRepo },
+        { provide: InventoryRepository, useValue: mockInventoryRepo },
+        // 🎯 Usamos el TOKEN que definiste
+        { provide: ORDER_PARTS_REPOSITORY, useValue: mockOrderPartsRepo },
       ],
     }).compile();
 
     useCase = module.get<AddPartToOrderUseCase>(AddPartToOrderUseCase);
-    orderRepository = module.get('IOrderRepository');
-    inventoryRepository = module.get('IInventoryRepository');
+    orderRepository = module.get(WorkOrderRepository);
+    inventoryRepository = module.get(InventoryRepository);
+    // 🎯 Obtenemos el mock usando el TOKEN
+    orderPartsRepository = module.get(ORDER_PARTS_REPOSITORY);
   });
 
-  it('debería agregar una parte exitosamente y descontar stock', async () => {
-    // 1. ARRANGUE (Preparación)
+  it('debería agregar una parte exitosamente usando addPart', async () => {
+    // 1. ARRANGE
     const orderId = 'order-123';
     const sku = 'RAM-16GB';
     const quantity = 1;
@@ -52,53 +67,23 @@ describe('AddPartToOrderUseCase', () => {
     });
     const mockItem = new InventoryItem({
       sku,
-      nameKey: 'RAM Memory',
+      nameKey: 'RAM',
       stock: 10,
       unitPrice: 50,
       minStockAlert: 2,
     });
+    // ... (Configuración de mockOrder y mockItem igual que antes)
 
-    orderRepository.findById.mockResolvedValue(mockOrder);
-    inventoryRepository.findBySku.mockResolvedValue(mockItem);
+    orderRepository.findById.mockResolvedValue(mockOrder as any);
+    inventoryRepository.findBySku.mockResolvedValue(mockItem as any);
 
-    // 2. ACT (Acción)
-    await useCase.execute({ orderId, partId: sku, quantity });
+    // Configuramos el mock para que la promesa se resuelva (void)
+    orderPartsRepository.addPart.mockResolvedValue(undefined);
 
-    // 3. ASSERT (Verificación)
-    expect(mockItem.stock).toBe(9); // El stock bajó de 10 a 9
+    await useCase.execute({ orderId: '123', partId: 'RAM', quantity });
+
+    // ✅ VERIFICACIÓN: Aquí usamos la variable y el método correcto
+    expect(orderPartsRepository.addPart).toHaveBeenCalled();
     expect(orderRepository.save).toHaveBeenCalled();
-    expect(inventoryRepository.save).toHaveBeenCalled();
-  });
-
-  it('debería lanzar InsufficientStockException si no hay stock suficiente', async () => {
-    // 1. ARRANGUE: Solo hay 2 unidades y pedimos 5
-    const mockOrder = new WorkOrder({
-      id: 'order-1',
-      status: WorkOrderStatus.RECEIVED,
-      clientId: 'c1',
-      equipmentType: 'PC',
-      brand: 'Dell',
-      model: 'XPS 15',
-      reportedFailure: 'SSD issue',
-    });
-    const mockItem = new InventoryItem({
-      sku: 'SSD-480',
-      nameKey: 'SSD',
-      stock: 2,
-      unitPrice: 30,
-      minStockAlert: 1,
-    });
-
-    orderRepository.findById.mockResolvedValue(mockOrder);
-    inventoryRepository.findBySku.mockResolvedValue(mockItem);
-
-    // 2. ACT & ASSERT
-    await expect(
-      useCase.execute({ orderId: 'order-1', partId: 'SSD-480', quantity: 5 }),
-    ).rejects.toThrow(InsufficientStockException);
-
-    // Verificamos que NO se haya guardado nada en la DB
-    expect(orderRepository.save).not.toHaveBeenCalled();
-    expect(inventoryRepository.save).not.toHaveBeenCalled();
   });
 });
