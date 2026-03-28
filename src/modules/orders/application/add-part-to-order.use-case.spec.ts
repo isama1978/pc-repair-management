@@ -94,7 +94,7 @@ describe('AddPartToOrderUseCase', () => {
     // Configuramos el mock para que la promesa se resuelva (void)
     orderPartsRepository.addPart.mockResolvedValue(undefined);
 
-    await useCase.execute({ orderId: '123', partId: 'RAM', quantity });
+    await useCase.execute({ orderId: 'order-123', partId: 'RAM', quantity });
 
     // ✅ VERIFICACIÓN: Aquí usamos la variable y el método correcto
     expect(orderPartsRepository.addPart).toHaveBeenCalled();
