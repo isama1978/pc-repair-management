@@ -29,7 +29,6 @@ describe('AddPartToOrderUseCase', () => {
     const mockWorkOrderRepo = {
       findById: jest.fn(),
       save: jest.fn(),
-      update: jest.fn(),
     };
     const mockInventoryRepo = {
       findBySku: jest.fn(),
@@ -74,6 +73,7 @@ describe('AddPartToOrderUseCase', () => {
       brand: 'Dell',
       model: 'XPS 15',
       reportedFailure: 'Memory issue',
+      totalAmount: 0,
     });
     const mockItem = new InventoryItem({
       sku,
@@ -84,7 +84,6 @@ describe('AddPartToOrderUseCase', () => {
     });
 
     orderRepository.findById.mockResolvedValue(mockOrder as any);
-    orderRepository.update.mockResolvedValue(mockOrder as any);
     orderRepository.save.mockResolvedValue(mockOrder as any);
     inventoryRepository.findBySku.mockResolvedValue(mockItem as any);
     inventoryRepository.findById.mockResolvedValue(mockItem as any);
@@ -100,9 +99,9 @@ describe('AddPartToOrderUseCase', () => {
     expect(orderPartsRepository.addPart).toHaveBeenCalled();
     expect(orderRepository.findById).toHaveBeenCalledWith(orderId);
     expect(orderRepository.save).toHaveBeenCalledWith(mockOrder);
-    expect(orderRepository.update).toHaveBeenCalledWith(mockOrder);
     expect(inventoryRepository.findById).toHaveBeenCalledWith(sku);
     expect(inventoryRepository.update).toHaveBeenCalledWith(sku, { stock: 9 });
     expect(inventoryRepository.save).toHaveBeenCalledWith(mockItem);
+    expect(mockItem.stock).toBe(9);
   });
 });
