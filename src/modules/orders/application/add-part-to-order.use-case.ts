@@ -1,8 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { WorkOrderRepository } from 'src/modules/orders/domain/work-order.repository';
 import { InventoryRepository } from '../../inventory/domain/inventory.repository';
-import { OrderPartsRepository } from 'src/modules/orders/domain/order-parts.repository';
+import {
+  ORDER_PARTS_REPOSITORY,
+  OrderPartsRepository,
+} from 'src/modules/orders/domain/order-parts.repository';
 import { OrderPart } from 'src/modules/orders/domain/order-part.entity';
 import { InsufficientStockException } from '../../inventory/domain/exceptions/insufficient-stock.exception';
 import { OrderNotFoundException } from '../domain/exceptions/order-not-found.exception';
@@ -14,6 +17,7 @@ export class AddPartToOrderUseCase {
     private readonly dataSource: DataSource, // Necesario para la transacción
     private readonly orderRepo: WorkOrderRepository,
     private readonly inventoryRepo: InventoryRepository,
+    @Inject(ORDER_PARTS_REPOSITORY)
     private readonly orderPartsRepo: OrderPartsRepository,
   ) {}
 

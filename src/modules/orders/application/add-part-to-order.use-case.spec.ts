@@ -73,7 +73,6 @@ describe('AddPartToOrderUseCase', () => {
       unitPrice: 50,
       minStockAlert: 2,
     });
-    // ... (Configuración de mockOrder y mockItem igual que antes)
 
     orderRepository.findById.mockResolvedValue(mockOrder as any);
     inventoryRepository.findBySku.mockResolvedValue(mockItem as any);
