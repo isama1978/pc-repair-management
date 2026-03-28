@@ -73,6 +73,7 @@ describe('AddPartToOrderUseCase', () => {
       equipmentType: 'PC',
       brand: 'Dell',
       model: 'XPS 15',
+      laborCost: 100,
       reportedFailure: 'Memory issue',
       totalAmount: 0,
     });
