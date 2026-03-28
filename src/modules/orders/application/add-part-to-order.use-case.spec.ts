@@ -26,7 +26,11 @@ describe('AddPartToOrderUseCase', () => {
       sumTotalByOrderId: jest.fn(),
     };
 
-    const mockWorkOrderRepo = { findById: jest.fn(), save: jest.fn() };
+    const mockWorkOrderRepo = {
+      findById: jest.fn(),
+      save: jest.fn(),
+      update: jest.fn(),
+    };
     const mockInventoryRepo = {
       findBySku: jest.fn(),
       save: jest.fn(),
@@ -80,6 +84,8 @@ describe('AddPartToOrderUseCase', () => {
     });
 
     orderRepository.findById.mockResolvedValue(mockOrder as any);
+    orderRepository.update.mockResolvedValue(mockOrder as any);
+    orderRepository.save.mockResolvedValue(mockOrder as any);
     inventoryRepository.findBySku.mockResolvedValue(mockItem as any);
     inventoryRepository.findById.mockResolvedValue(mockItem as any);
     inventoryRepository.update.mockResolvedValue(mockItem as any);
@@ -92,7 +98,9 @@ describe('AddPartToOrderUseCase', () => {
 
     // ✅ VERIFICACIÓN: Aquí usamos la variable y el método correcto
     expect(orderPartsRepository.addPart).toHaveBeenCalled();
+    expect(orderRepository.findById).toHaveBeenCalledWith(orderId);
     expect(orderRepository.save).toHaveBeenCalled();
+    expect(orderRepository.update).toHaveBeenCalledWith(mockOrder);
     expect(inventoryRepository.findById).toHaveBeenCalledWith(sku);
     expect(inventoryRepository.update).toHaveBeenCalledWith(sku, { stock: 9 });
     expect(inventoryRepository.save).toHaveBeenCalledWith(mockItem);
