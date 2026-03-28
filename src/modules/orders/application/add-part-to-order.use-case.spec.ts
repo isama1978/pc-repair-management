@@ -99,7 +99,7 @@ describe('AddPartToOrderUseCase', () => {
     // ✅ VERIFICACIÓN: Aquí usamos la variable y el método correcto
     expect(orderPartsRepository.addPart).toHaveBeenCalled();
     expect(orderRepository.findById).toHaveBeenCalledWith(orderId);
-    expect(orderRepository.save).toHaveBeenCalled();
+    expect(orderRepository.save).toHaveBeenCalledWith(mockOrder);
     expect(orderRepository.update).toHaveBeenCalledWith(mockOrder);
     expect(inventoryRepository.findById).toHaveBeenCalledWith(sku);
     expect(inventoryRepository.update).toHaveBeenCalledWith(sku, { stock: 9 });
