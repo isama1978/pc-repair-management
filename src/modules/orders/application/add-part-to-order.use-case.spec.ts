@@ -31,6 +31,7 @@ describe('AddPartToOrderUseCase', () => {
       findBySku: jest.fn(),
       save: jest.fn(),
       findById: jest.fn(),
+      update: jest.fn(),
     };
     const mockDataSource = {
       transaction: jest.fn().mockImplementation((cb) => cb()),
@@ -81,6 +82,8 @@ describe('AddPartToOrderUseCase', () => {
     orderRepository.findById.mockResolvedValue(mockOrder as any);
     inventoryRepository.findBySku.mockResolvedValue(mockItem as any);
     inventoryRepository.findById.mockResolvedValue(mockItem as any);
+    inventoryRepository.update.mockResolvedValue(mockItem as any);
+    inventoryRepository.save.mockResolvedValue(mockItem as any);
 
     // Configuramos el mock para que la promesa se resuelva (void)
     orderPartsRepository.addPart.mockResolvedValue(undefined);
@@ -91,5 +94,7 @@ describe('AddPartToOrderUseCase', () => {
     expect(orderPartsRepository.addPart).toHaveBeenCalled();
     expect(orderRepository.save).toHaveBeenCalled();
     expect(inventoryRepository.findById).toHaveBeenCalledWith(sku);
+    expect(inventoryRepository.update).toHaveBeenCalledWith(sku, { stock: 9 });
+    expect(inventoryRepository.save).toHaveBeenCalledWith(mockItem);
   });
 });
