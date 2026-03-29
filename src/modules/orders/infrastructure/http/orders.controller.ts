@@ -17,7 +17,7 @@ import { CreateOrderUseCase } from '../../application/create-order.use-case';
 import { CreateOrderDto } from './dto/create-order.dto';
 import type { Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from 'src/common/decorators/get-user.decorator';
+import { GetUser } from '../../../../common/decorators/get-user.decorator';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { UpdateOrderStatusUseCase } from '../../application/update-order-status.use-case';
 import { FindAllOrdersUseCase } from '../../application/find-all-orders.use-case';
