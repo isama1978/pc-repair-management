@@ -1,6 +1,6 @@
 // src/modules/inventory/domain/inventory-item.entity.ts
 
-import { InvalidDomainValueException } from 'src/modules/common/domain/exceptions/InvalidDomainValueException';
+import { InvalidDomainValueException } from '../../common/domain/exceptions/InvalidDomainValueException';
 import { InsufficientStockException } from './exceptions/insufficient-stock.exception';
 
 export interface InventoryProps {

@@ -3,7 +3,7 @@
    Aligned with DomainExceptions and i18n keys.
 */
 
-import { InvalidDomainValueException } from 'src/modules/common/domain/exceptions/InvalidDomainValueException';
+import { InvalidDomainValueException } from '../../common/domain/exceptions/InvalidDomainValueException';
 import { InvalidOrderOperationException } from './exceptions/invalid-order-status-transition.exception';
 
 export enum WorkOrderStatus {
