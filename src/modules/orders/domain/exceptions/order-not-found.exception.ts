@@ -1,5 +1,5 @@
 import { HttpStatus } from '@nestjs/common';
-import { DomainException } from 'src/modules/common/domain/exceptions/domain-exception';
+import { DomainException } from '../../../common/domain/exceptions/domain-exception';
 
 export class OrderNotFoundException extends DomainException {
   constructor(orderId: string) {
