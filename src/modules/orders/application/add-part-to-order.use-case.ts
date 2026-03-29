@@ -17,7 +17,6 @@ export class AddPartToOrderUseCase {
     private readonly dataSource: DataSource, // Necesario para la transacción
     private readonly orderRepo: WorkOrderRepository,
     private readonly inventoryRepo: InventoryRepository,
-    @Inject(ORDER_PARTS_REPOSITORY)
     private readonly orderPartsRepo: OrderPartsRepository,
   ) {}
 
