@@ -4,7 +4,7 @@ import { CLIENT_REPOSITORY } from '../domain/client.repository';
 // 2. Importamos la INTERFAZ (solo como tipo para TypeScript)
 import { ClientRepository } from '../domain/client.repository';
 import { UpdateClientDto } from '../infrastructure/http/dto/update-client-dto';
-import { EntityNotFoundException } from 'src/modules/common/domain/exceptions/EntityNotFoundException';
+import { EntityNotFoundException } from '../../common/domain/exceptions/EntityNotFoundException';
 
 @Injectable()
 export class UpdateClientUseCase {

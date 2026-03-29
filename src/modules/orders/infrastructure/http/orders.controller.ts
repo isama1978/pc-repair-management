@@ -23,7 +23,7 @@ import { UpdateOrderStatusUseCase } from '../../application/update-order-status.
 import { FindAllOrdersUseCase } from '../../application/find-all-orders.use-case';
 import { FindOrdersByTechnicianUseCase } from '../../application/find-orders-by-technician.use-case';
 import { GetOrderHistoryUseCase } from '../../application/get-order-history.use-case';
-import { CancelOrderUseCase } from 'src/modules/orders/application/cancel-order.use-case';
+import { CancelOrderUseCase } from '../../application/cancel-order.use-case';
 import { FindInventoryItemsByOrderIdUseCase } from '../../application/find-inventory-item-by-order-id.use-case';
 import { CreateOrderPartDto } from './dto/create-order-part.dto';
 import { AddPartToOrderUseCase } from '../../application/add-part-to-order.use-case';
