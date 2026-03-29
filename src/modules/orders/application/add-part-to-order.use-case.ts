@@ -65,7 +65,6 @@ export class AddPartToOrderUseCase {
 
       // 4. Persistencia: Actualizar el stock del inventario
       await this.inventoryRepo.update(part);
-
       // 5. Recalcular el total real de la orden
       // Usamos el método que suma todo lo que ya existe en la DB para esa orden
       const partsTotal = await this.orderPartsRepo.sumTotalByOrderId(orderId);
