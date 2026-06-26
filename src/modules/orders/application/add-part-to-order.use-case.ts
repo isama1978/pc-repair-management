@@ -1,8 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { WorkOrderRepository } from 'src/modules/orders/domain/work-order.repository';
 import { InventoryRepository } from '../../inventory/domain/inventory.repository';
-import { OrderPartsRepository } from 'src/modules/orders/domain/order-parts.repository';
+import {
+  ORDER_PARTS_REPOSITORY,
+  OrderPartsRepository,
+} from 'src/modules/orders/domain/order-parts.repository';
 import { OrderPart } from 'src/modules/orders/domain/order-part.entity';
 import { InsufficientStockException } from '../../inventory/domain/exceptions/insufficient-stock.exception';
 import { OrderNotFoundException } from '../domain/exceptions/order-not-found.exception';
@@ -61,7 +64,6 @@ export class AddPartToOrderUseCase {
 
       // 4. Persistencia: Actualizar el stock del inventario
       await this.inventoryRepo.update(part);
-
       // 5. Recalcular el total real de la orden
       // Usamos el método que suma todo lo que ya existe en la DB para esa orden
       const partsTotal = await this.orderPartsRepo.sumTotalByOrderId(orderId);

@@ -1,5 +1,5 @@
 // src/modules/inventory/domain/exceptions/insufficient-stock.exception.ts
-import { DomainException } from 'src/modules/common/domain/exceptions/domain-exception';
+import { DomainException } from '../../../common/domain/exceptions/domain-exception';
 
 export class InsufficientStockException extends DomainException {
   constructor(sku: string, current: number, requested: number) {

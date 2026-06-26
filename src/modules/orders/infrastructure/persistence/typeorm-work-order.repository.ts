@@ -11,7 +11,7 @@ import { WorkOrder, WorkOrderStatus } from '../../domain/work-order.entity';
 import { WorkOrderOrmEntity } from './work-order.orm-entity';
 import { WorkOrderHistoryOrmEntity } from './work-order-history.orm-entity';
 import { OrderHistory } from '../../domain/work-order-history.entity';
-import { InvalidDomainValueException } from 'src/modules/common/domain/exceptions/InvalidDomainValueException';
+import { InvalidDomainValueException } from '../../../common/domain/exceptions/InvalidDomainValueException';
 
 @Injectable()
 export class TypeOrmWorkOrderRepository extends WorkOrderRepository {

@@ -2,7 +2,7 @@
    Represents a staff member (Admin or Technician).
 */
 
-import { InvalidDomainValueException } from 'src/modules/common/domain/exceptions/InvalidDomainValueException';
+import { InvalidDomainValueException } from '../../common/domain/exceptions/InvalidDomainValueException';
 
 export enum UserRole {
   ADMIN = 'ADMIN',
